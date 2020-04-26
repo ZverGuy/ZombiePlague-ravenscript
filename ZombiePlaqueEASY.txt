@@ -30,7 +30,7 @@ function ZombiePlaqueEASY:OnActorSpawn(actor2)
   else actor2.damage(-50)
   end
 end
---update не нужон сука
+--update not needed
 function ZombiePlaqueEASY:Update() 
 
 end
