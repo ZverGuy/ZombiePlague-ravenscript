@@ -1,0 +1,36 @@
+﻿-- Register the behaviour
+behaviour("ZombiePlaque")
+--добавление листинеров
+function ZombiePlaque:Start() 
+    GameEvents.onActorDied.AddListener(self, "OnActorDied")
+    GameEvents.onActorSpawn.AddListener(self, "OnActorSpawn")
+  end
+  --При смерти вызывается проверка на тиму и на игрока
+  function ZombiePlaque:OnActorDied( actor , killer, isSilent)
+    if actor.team == Team.Blue and killer.team == Team.Red then
+     if actor.isPlayer == true then
+    local infectspawn = ActorManager.CreateAIActor(Team.Red)
+    infectspawn.SpawnAt(actor.position, Quaternion(0,0,0,0))
+    infectspawn.Damage(-2000)
+    killer.damage(-100)
+     else 
+      local infectspawn = ActorManager.CreateAIActor(Team.Red)
+      infectspawn.SpawnAt(actor.position, Quaternion(0,0,0,0))
+      infectspawn.Damage(-2000)
+      killer.damage(-100)
+      actor.Deactivate()
+     end
+  end
+end
+--функция спавна и проверка тимы
+function ZombiePlaque:OnActorSpawn(actor2)
+  if actor2.team == Team.Red then
+    local health_rand2 = Random.Range(-1000, -5000)
+    actor2.damage(health_rand2)
+  else actor2.damage(-50)
+  end
+end
+--update не нужон сука
+function ZombiePlaque:Update() 
+
+end
