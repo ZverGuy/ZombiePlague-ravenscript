@@ -1,11 +1,11 @@
 ﻿-- Register the behaviour
 behaviour("ZombiePlaque")
---добавление листинеров
+--add listeners
 function ZombiePlaque:Start() 
     GameEvents.onActorDied.AddListener(self, "OnActorDied")
     GameEvents.onActorSpawn.AddListener(self, "OnActorSpawn")
   end
-  --При смерти вызывается проверка на тиму и на игрока
+  --On Actor Died call this function with team check and player check
   function ZombiePlaque:OnActorDied( actor , killer, isSilent)
     if actor.team == Team.Blue and killer.team == Team.Red then
      if actor.isPlayer == true then
@@ -22,7 +22,7 @@ function ZombiePlaque:Start()
      end
   end
 end
---функция спавна и проверка тимы
+--Spawn Function with Team Check
 function ZombiePlaque:OnActorSpawn(actor2)
   if actor2.team == Team.Red then
     local health_rand2 = Random.Range(-1000, -5000)
@@ -30,7 +30,7 @@ function ZombiePlaque:OnActorSpawn(actor2)
   else actor2.damage(-50)
   end
 end
---update не нужон сука
+--update not needed
 function ZombiePlaque:Update() 
 
 end
